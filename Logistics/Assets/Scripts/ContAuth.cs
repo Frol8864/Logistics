@@ -16,13 +16,11 @@ public class ContAuth : MonoBehaviour
     [SerializeField] ContUser contUser;
     private List<DataUserAuth> dataUserAuths;
 
-    private void Start() {
-        StartAuth();
-    }
     public void StartAuth(){
         popUp.SetActive(true);
         dataUserAuths = new List<DataUserAuth>(){
-            new DataUserAuth("79675006885", "dick", 0)
+            new DataUserAuth("79675006885", "dick", 0),
+            new DataUserAuth("79675006886", "dick", 1)
         };
     }
 
@@ -66,8 +64,9 @@ public class DataAnswerAuth {
     public bool succes;
     public int idUser;
     public string error;
-    public DataAnswerAuth(bool _succes, int idUser, string _error){
+    public DataAnswerAuth(bool _succes, int _idUser, string _error){
         succes = _succes;
+        idUser = _idUser;
         error = _error;
     }
 }
