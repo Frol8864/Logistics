@@ -16,14 +16,16 @@ public class User : MonoBehaviour
     public string nameFather;
     public string login;
     public role role;
+    public Car car;
 
-    public User(int _idUser, string _nameUser, string _family, string _nameFather, string _login, role _role){
+    public User(int _idUser, string _nameUser, string _family, string _nameFather, string _login, role _role, Car car){
         idUser = _idUser;
         nameUser = _nameUser;
         family = _family;
         nameFather = _nameFather;
         login = _login;
         role = _role;
+        this.car = car;
     }
 }
 

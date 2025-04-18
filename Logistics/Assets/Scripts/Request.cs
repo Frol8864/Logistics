@@ -20,9 +20,11 @@ public class Request : MonoBehaviour
     public string addressTo;
     public string dateTo;
     public string timeTo;
+    public int idDriver;
 
     public Request(int _idRequest, int _numberRequest, string _nameCargo, int _weight, int _volume,
-                    string _addressFrom, string _dateFrom, string _timeFrom, string _addressTo, string _dateTo, string _timeTo){
+                    string _addressFrom, string _dateFrom, string _timeFrom, string _addressTo, string _dateTo, string _timeTo,
+                    int idDriver){
         idRequest = _idRequest;
         numberRequest = _numberRequest;
         nameCargo = _nameCargo;
@@ -34,5 +36,11 @@ public class Request : MonoBehaviour
         addressTo = _addressTo;
         dateTo = _dateTo;
         timeTo = _timeTo;
+        this.idDriver = idDriver;
     }
+}
+
+public enum statusRequest{
+    work,
+    end,
 }

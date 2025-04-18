@@ -19,8 +19,9 @@ public class ContUser : MonoBehaviour
 
     public void GenUser(){
         users = new List<User>{
-            new User(0, "Виктор", "Горловой", "", "79675006885", role.driver),
-            new User(1, "Виктор", "Горловой", "", "79675006886", role.logist),
+            new User(0, "Райан", "Гослинг", "", "79675006885", role.driver, new Car("Geely", "12345678901234567", "A123AA123")),
+            new User(1, "Христофор", "Колумб", "", "79675006886", role.logist, null),
+            new User(2, "Джейсон", "Стэйтем", "", "79675006887", role.carrier, null),
         };
     }
 

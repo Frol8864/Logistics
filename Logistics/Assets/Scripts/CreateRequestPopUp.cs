@@ -21,6 +21,9 @@ public class CreateRequestPopUp : MonoBehaviour
     [SerializeField] Text errorInfo;
     [SerializeField] GameObject fon;
 
+    public User driver;
+    public bool isDriver;
+
     public void ClickOpenClose(bool flag){
         nameCargo.text = "";
         weight.text = "";
@@ -33,12 +36,16 @@ public class CreateRequestPopUp : MonoBehaviour
         timeTo.text = "";
         errorInfo.text = "";
         fon.SetActive(flag);
+        isDriver = false;
     }
 
     public void ClickCreate(){
+        if(!isDriver) return;
+        
         Request request = new Request(
             contRequest.requests.Count, contRequest.requests.Count, nameCargo.text, Int32.Parse(weight.text), Int32.Parse(volume.text), 
-            addressFrom.text, dateFrom.text, timeFrom.text, addressTo.text, dateTo.text, timeTo.text
+            addressFrom.text, dateFrom.text, timeFrom.text, addressTo.text, dateTo.text, timeTo.text,
+            driver.idUser
         );
         contRequest.requests.Add(request);
         nameCargo.text = "";

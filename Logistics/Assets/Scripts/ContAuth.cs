@@ -19,8 +19,9 @@ public class ContAuth : MonoBehaviour
     public void StartAuth(){
         popUp.SetActive(true);
         dataUserAuths = new List<DataUserAuth>(){
-            new DataUserAuth("79675006885", "dick", 0),
-            new DataUserAuth("79675006886", "dick", 1)
+            new DataUserAuth("79675006885", "driver", 0),
+            new DataUserAuth("79675006886", "logist", 1),
+            new DataUserAuth("79675006887", "carrier", 2),
         };
     }
 
@@ -38,6 +39,12 @@ public class ContAuth : MonoBehaviour
             }
         }
         errorInfo.GetComponent<Text>().text = "Не подходит логин или пароль";
+    }
+
+    public void LogOut(){
+        popUp.SetActive(true);
+        errorInfo.GetComponent<Text>().text = "";
+        passwordField.text = "";
     }
 }
 

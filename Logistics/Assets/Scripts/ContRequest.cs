@@ -13,7 +13,8 @@ public class ContRequest : MonoBehaviour
 
     public void GenRequsts(){
         requests = new List<Request>{
-            new Request(0, 101, "Шкаф", 30, 10, "Саратов", "12.05.2025", "10:00", "Москва", "13.05.2025", "15:00")
+            new Request(0, 101, "Шкаф", 30, 10, "Саратов", "12.05.2025", "10:00", "Москва", "13.05.2025", "15:00", 
+                0)
         };
     }
 
