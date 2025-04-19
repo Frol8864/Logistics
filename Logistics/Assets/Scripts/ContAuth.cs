@@ -34,7 +34,7 @@ public class ContAuth : MonoBehaviour
             DataAnswerAuth dataAnswerAuth = dataUserAuths[i].ChechLogPass(login,password);
             if(dataAnswerAuth.succes) {
                 popUp.SetActive(false);
-                contUser.GetUser(dataAnswerAuth.idUser);
+                contUser.AuthUser(dataAnswerAuth.idUser);
                 return;
             }
         }

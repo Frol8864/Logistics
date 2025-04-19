@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 
 public class DriverPopUp : MonoBehaviour
 {
+    [SerializeField] ContUser contUser;
     [SerializeField] ContRequest contRequest;
     [SerializeField] InputField numberRequest;
     [SerializeField] Text nameCargo;
@@ -22,6 +23,15 @@ public class DriverPopUp : MonoBehaviour
     [SerializeField] Text timeTo;
     [SerializeField] Text errorInfo;
     [SerializeField] GameObject fon;
+    [SerializeField] Text infoDriver;
+    [SerializeField] Text infoCarrier;
+    [SerializeField] Text status;
+
+    [SerializeField] List<BlockRequest> blockRequests;
+    [SerializeField] Text countPages;
+
+    private List<Request> requests;
+    private int indexPage;
 
     public void ClickOpenClose(bool flag){
         numberRequest.text = "";
@@ -35,9 +45,41 @@ public class DriverPopUp : MonoBehaviour
         dateTo.GetComponent<Text>().text = "";
         timeTo.GetComponent<Text>().text = "";
         errorInfo.GetComponent<Text>().text = "";
+        infoDriver.GetComponent<Text>().text = "";
+        infoCarrier.GetComponent<Text>().text = "";
+        status.GetComponent<Text>().text = "";
         fon.SetActive(flag);
+
+        if(flag){
+            indexPage = 0;
+            requests = contRequest.GetRequests(contUser.user);
+            for(int i = 0; i < blockRequests.Count; i++) {
+                blockRequests[i].Clear();
+            }
+            for(int i = indexPage * blockRequests.Count; i < (indexPage + 1) * blockRequests.Count && i < requests.Count; i++) {
+                blockRequests[i % blockRequests.Count].AddRequest(requests[i]);
+            }
+            countPages.GetComponent<Text>().text = (indexPage + 1).ToString() + " / " 
+                + (requests.Count / blockRequests.Count 
+                    + (requests.Count % blockRequests.Count == 0 ? 0 : 1)).ToString();
+        }
     }
 
+    public void ChangeIndexPage(int x){
+        if(indexPage + x < 0 || indexPage + x + 1 > requests.Count / blockRequests.Count 
+                + (requests.Count % blockRequests.Count == 0 ? 0 : 1)) return;
+        indexPage+=x;
+        requests = contRequest.GetRequests(contUser.user);
+        for(int i = 0; i < blockRequests.Count; i++) {
+            blockRequests[i].Clear();
+        }
+        for(int i = indexPage * blockRequests.Count; i < (indexPage + 1) * blockRequests.Count && i < requests.Count; i++) {
+            blockRequests[i % blockRequests.Count].AddRequest(requests[i]);
+        }
+        countPages.GetComponent<Text>().text = (indexPage + 1).ToString() + " / " 
+            + (requests.Count / blockRequests.Count 
+                + (requests.Count % blockRequests.Count == 0 ? 0 : 1)).ToString();
+    }
     public void ClickSearch(){
         DataAnswerSearch dataAnswerSearch = contRequest.GetRequestByNumber(Int32.Parse(numberRequest.text));
         numberRequest.text = "";
@@ -51,6 +93,9 @@ public class DriverPopUp : MonoBehaviour
             addressTo.GetComponent<Text>().text = "";
             dateTo.GetComponent<Text>().text = "";
             timeTo.GetComponent<Text>().text = "";
+            infoDriver.GetComponent<Text>().text = "";
+            infoCarrier.GetComponent<Text>().text = "";
+            status.GetComponent<Text>().text = "";
             errorInfo.GetComponent<Text>().text = dataAnswerSearch.error;
         } else {
             nameCargo.GetComponent<Text>().text = dataAnswerSearch.request.nameCargo;
@@ -62,7 +107,52 @@ public class DriverPopUp : MonoBehaviour
             addressTo.GetComponent<Text>().text = dataAnswerSearch.request.addressTo;
             dateTo.GetComponent<Text>().text = dataAnswerSearch.request.dateTo;
             timeTo.GetComponent<Text>().text = dataAnswerSearch.request.timeTo;
+            status.GetComponent<Text>().text = dataAnswerSearch.request.GetStatus();
+            dataAnswerUser dataAnswerUser = contUser.GetUser(dataAnswerSearch.request.idDriver);
+            User user = dataAnswerUser.user;
+            if(dataAnswerUser.succes){
+                infoDriver.GetComponent<Text>().text = user.family + " " + user.nameUser + ", " + user.car.nameCar + " " + user.car.number + " " + user.car.vin;
+            } else {
+                infoDriver.GetComponent<Text>().text = dataAnswerUser.error;
+            }
+            dataAnswerUser = contUser.GetUser(dataAnswerSearch.request.idCarrier);
+            user = dataAnswerUser.user;
+            if(dataAnswerUser.succes){
+                infoCarrier.GetComponent<Text>().text = user.family + " " + user.nameUser + ", " + user.legal.nameLegal + " " + user.legal.inn + " " + user.legal.kpp;
+            } else {
+                infoCarrier.GetComponent<Text>().text = dataAnswerUser.error;
+            }
             errorInfo.GetComponent<Text>().text = "";
         }
     }
+
+    public void ShowRequest(Request request){
+        nameCargo.GetComponent<Text>().text = request.nameCargo;
+        weight.GetComponent<Text>().text = request.weight.ToString();
+        volume.GetComponent<Text>().text = request.volume.ToString();
+        addressFrom.GetComponent<Text>().text = request.addressFrom;
+        dateFrom.GetComponent<Text>().text = request.dateFrom;
+        timeFrom.GetComponent<Text>().text = request.timeFrom;
+        addressTo.GetComponent<Text>().text = request.addressTo;
+        dateTo.GetComponent<Text>().text = request.dateTo;
+        timeTo.GetComponent<Text>().text = request.timeTo;
+        status.GetComponent<Text>().text = request.GetStatus();
+        dataAnswerUser dataAnswerUser = contUser.GetUser(request.idDriver);
+        User user = dataAnswerUser.user;
+        if(dataAnswerUser.succes){
+            infoDriver.GetComponent<Text>().text = user.family + " " + user.nameUser + ", " + user.car.nameCar + " " + user.car.number + " " + user.car.vin;
+        } else {
+            infoDriver.GetComponent<Text>().text = dataAnswerUser.error;
+        }
+        dataAnswerUser = contUser.GetUser(request.idCarrier);
+        user = dataAnswerUser.user;
+        if(dataAnswerUser.succes){
+            infoCarrier.GetComponent<Text>().text = user.family + " " + user.nameUser + ", " + user.legal.nameLegal + " " + user.legal.inn + " " + user.legal.kpp;
+        } else {
+            infoCarrier.GetComponent<Text>().text = dataAnswerUser.error;
+        }
+        errorInfo.GetComponent<Text>().text = "";
+    }
+
+
 }

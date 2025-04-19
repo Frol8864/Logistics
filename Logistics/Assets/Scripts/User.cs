@@ -17,8 +17,10 @@ public class User : MonoBehaviour
     public string login;
     public role role;
     public Car car;
+    public Legal legal;
+    public int idUserCreate;
 
-    public User(int _idUser, string _nameUser, string _family, string _nameFather, string _login, role _role, Car car){
+    public User(int _idUser, string _nameUser, string _family, string _nameFather, string _login, role _role, Car car, Legal legal, int idUserCreate){
         idUser = _idUser;
         nameUser = _nameUser;
         family = _family;
@@ -26,6 +28,8 @@ public class User : MonoBehaviour
         login = _login;
         role = _role;
         this.car = car;
+        this.legal = legal;
+        this.idUserCreate = idUserCreate;
     }
 }
 

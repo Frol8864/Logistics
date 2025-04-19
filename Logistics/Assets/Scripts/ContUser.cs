@@ -19,13 +19,13 @@ public class ContUser : MonoBehaviour
 
     public void GenUser(){
         users = new List<User>{
-            new User(0, "Райан", "Гослинг", "", "79675006885", role.driver, new Car("Geely", "12345678901234567", "A123AA123")),
-            new User(1, "Христофор", "Колумб", "", "79675006886", role.logist, null),
-            new User(2, "Джейсон", "Стэйтем", "", "79675006887", role.carrier, null),
+            new User(0, "Райан", "Гослинг", "", "79675006885", role.driver, new Car("Geely", "12345678901234567", "A123AA123"), null, 2),
+            new User(1, "Христофор", "Колумб", "", "79675006886", role.logist, null, null, 0),
+            new User(2, "Джейсон", "Стэйтем", "", "79675006887", role.carrier, null, new Legal(0, "Колхоз 40 лет без урожая", "123456789012", "0987654321"), 1),
         };
     }
 
-    public void GetUser(int idUser){
+    public void AuthUser(int idUser){
         for(int i = 0; i < users.Count; i++) {
             if(idUser == users[i].idUser) {
                 user = users[i];
@@ -37,6 +37,32 @@ public class ContUser : MonoBehaviour
         }
     }
 
+    public dataAnswerUser GetUser(int idUser){
+        for(int i = 0; i < users.Count; i++) {
+            if(idUser == users[i].idUser) {
+                return new dataAnswerUser(true, users[i], "");;
+            }
+        }
+        return new dataAnswerUser(false, null, "Пользователь не найден");
+    }
+
+    public List<User> GetListUser(role role, User user){
+        List<User> _users = new List<User>();
+        switch (role) {
+            case role.carrier:
+                for(int i = 0; i < users.Count; i++) {
+                    if(users[i].role == role.carrier) _users.Add(users[i]);
+                }
+            break;
+            case role.driver:
+                for(int i = 0; i < users.Count; i++) {
+                    if(users[i].role == role.driver && users[i].idUserCreate == user.idUser) _users.Add(users[i]);
+                }
+            break;
+        }
+        return _users;
+    }
+
     public void ClickMain(){
         if(user.role == role.driver) {
             driverPopUp.ClickOpenClose(true);
@@ -46,5 +72,16 @@ public class ContUser : MonoBehaviour
             createRequestPopUp.ClickOpenClose(false);
             logistPopUp.ClickOpenClose(true);
         }
+    }
+}
+
+public class dataAnswerUser{
+    public bool succes;
+    public User user;
+    public string error;
+    public dataAnswerUser(bool _succes, User _user, string _error){
+        succes = _succes;
+        user = _user;
+        error = _error;
     }
 }
