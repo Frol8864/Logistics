@@ -9,13 +9,11 @@ using UnityEngine.Networking;
 
 public class Legal : MonoBehaviour
 {
-    public int idLegal;
     public string nameLegal;
     public string inn;
     public string kpp;
 
-    public Legal(int idLegal, string nameLegal, string inn, string kpp){
-        this.idLegal = idLegal;
+    public Legal(string nameLegal, string inn, string kpp){
         this.nameLegal = nameLegal;
         this.inn = inn;
         this.kpp = kpp;

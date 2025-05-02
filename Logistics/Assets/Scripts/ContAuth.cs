@@ -14,7 +14,7 @@ public class ContAuth : MonoBehaviour
     [SerializeField] Text errorInfo;
     [SerializeField] GameObject popUp;
     [SerializeField] ContUser contUser;
-    private List<DataUserAuth> dataUserAuths;
+    public List<DataUserAuth> dataUserAuths;
 
     public void StartAuth(){
         popUp.SetActive(true);
@@ -43,6 +43,7 @@ public class ContAuth : MonoBehaviour
 
     public void LogOut(){
         popUp.SetActive(true);
+        loginField.text = "";
         errorInfo.GetComponent<Text>().text = "";
         passwordField.text = "";
     }

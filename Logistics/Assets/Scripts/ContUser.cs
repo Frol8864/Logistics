@@ -10,18 +10,22 @@ using UnityEngine.Networking;
 public class ContUser : MonoBehaviour
 {
     public User user;
-    private List<User> users;
+    public List<User> users;
     [SerializeField] Text fioText;
     [SerializeField] Text roleText;
     [SerializeField] DriverPopUp driverPopUp;
     [SerializeField] LogistPopUp logistPopUp;
+    [SerializeField] CarrierPopUp carrierPopUp;
     [SerializeField] CreateRequestPopUp createRequestPopUp;
+    [SerializeField] CreateUserPopUp createUserPopUp;
 
     public void GenUser(){
         users = new List<User>{
             new User(0, "Райан", "Гослинг", "", "79675006885", role.driver, new Car("Geely", "12345678901234567", "A123AA123"), null, 2),
             new User(1, "Христофор", "Колумб", "", "79675006886", role.logist, null, null, 0),
-            new User(2, "Джейсон", "Стэйтем", "", "79675006887", role.carrier, null, new Legal(0, "Колхоз 40 лет без урожая", "123456789012", "0987654321"), 1),
+            new User(2, "Джейсон", "Стэйтем", "", "79675006887", role.carrier, null, new Legal("Колхоз 40 лет без урожая", "123456789012", "0987654321"), 1),
+            //new User(3, "Джейсон", "Стэйтем", "", "79675006888", role.carrier, null, new Legal("ООО Моя Оборона", "210987654321", "1234567890"), 1),
+            //new User(4, "Доминик", "Торетто", "", "79675006889", role.driver, new Car("Dodge", "12345678901234567", "A123AA123"), null, 2),
         };
     }
 
@@ -70,7 +74,16 @@ public class ContUser : MonoBehaviour
         if(user.role == role.logist) {
             driverPopUp.ClickOpenClose(false);
             createRequestPopUp.ClickOpenClose(false);
+            createUserPopUp.ClickOpenClose(false);
+            carrierPopUp.ClickOpenClose(false);
             logistPopUp.ClickOpenClose(true);
+        }
+        if(user.role == role.carrier) {
+            driverPopUp.ClickOpenClose(false);
+            createRequestPopUp.ClickOpenClose(false);
+            createUserPopUp.ClickOpenClose(false);
+            logistPopUp.ClickOpenClose(false);
+            carrierPopUp.ClickOpenClose(true);
         }
     }
 }

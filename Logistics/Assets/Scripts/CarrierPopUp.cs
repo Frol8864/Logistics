@@ -7,11 +7,10 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 
-public class LogistPopUp : MonoBehaviour
+public class CarrierPopUp : MonoBehaviour
 {
     [SerializeField] GameObject fon;
     [SerializeField] DriverPopUp driverPopUp;
-    [SerializeField] CreateRequestPopUp createRequestPopUp;
     [SerializeField] CreateUserPopUp createUserPopUp;
 
     public void ClickOpenClose(bool flag){
@@ -23,10 +22,6 @@ public class LogistPopUp : MonoBehaviour
         driverPopUp.ClickOpenClose(true);
     }
 
-    public void ClickOpenCreateRequestPopUp(){
-        ClickOpenClose(false);
-        createRequestPopUp.ClickOpenClose(true);
-    }
     public void ClickOpenCreateUserPopUp(){
         ClickOpenClose(false);
         createUserPopUp.ClickOpenClose(true);

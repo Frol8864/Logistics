@@ -26,12 +26,14 @@ public class DriverPopUp : MonoBehaviour
     [SerializeField] Text infoDriver;
     [SerializeField] Text infoCarrier;
     [SerializeField] Text status;
+    [SerializeField] GameObject changeStatusRequest;
 
     [SerializeField] List<BlockRequest> blockRequests;
     [SerializeField] Text countPages;
 
     private List<Request> requests;
     private int indexPage;
+    private Request request;
 
     public void ClickOpenClose(bool flag){
         numberRequest.text = "";
@@ -48,6 +50,7 @@ public class DriverPopUp : MonoBehaviour
         infoDriver.GetComponent<Text>().text = "";
         infoCarrier.GetComponent<Text>().text = "";
         status.GetComponent<Text>().text = "";
+        changeStatusRequest.SetActive(false);
         fon.SetActive(flag);
 
         if(flag){
@@ -125,8 +128,13 @@ public class DriverPopUp : MonoBehaviour
             errorInfo.GetComponent<Text>().text = "";
         }
     }
-
+    public void ChangeStatuRequest(){
+        request.statusRequest = request.statusRequest == statusRequest.work ? statusRequest.end : statusRequest.work;
+        ShowRequest(request);
+        ChangeIndexPage(0);
+    }
     public void ShowRequest(Request request){
+        this.request = request;
         nameCargo.GetComponent<Text>().text = request.nameCargo;
         weight.GetComponent<Text>().text = request.weight.ToString();
         volume.GetComponent<Text>().text = request.volume.ToString();
@@ -152,6 +160,9 @@ public class DriverPopUp : MonoBehaviour
             infoCarrier.GetComponent<Text>().text = dataAnswerUser.error;
         }
         errorInfo.GetComponent<Text>().text = "";
+        if(contUser.user.role == role.logist){
+            changeStatusRequest.SetActive(true);
+        }
     }
 
 
