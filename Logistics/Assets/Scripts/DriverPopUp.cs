@@ -31,6 +31,8 @@ public class DriverPopUp : MonoBehaviour
     [SerializeField] List<BlockRequest> blockRequests;
     [SerializeField] Text countPages;
 
+    [SerializeField] Map map;
+
     private List<Request> requests;
     private int indexPage;
     private Request request;
@@ -126,6 +128,7 @@ public class DriverPopUp : MonoBehaviour
                 infoCarrier.GetComponent<Text>().text = dataAnswerUser.error;
             }
             errorInfo.GetComponent<Text>().text = "";
+            map.ShowMapForRequest(dataAnswerSearch.request);
         }
     }
     public void ChangeStatuRequest(){
@@ -163,6 +166,7 @@ public class DriverPopUp : MonoBehaviour
         if(contUser.user.role == role.logist){
             changeStatusRequest.SetActive(true);
         }
+        map.ShowMapForRequest(request);
     }
 
 
