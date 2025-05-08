@@ -19,6 +19,7 @@ public class BlockUser : MonoBehaviour
     private role role;
 
     public void Clear(){
+        info.text = "";
         empty.SetActive(true);
         isUser = false;
     }

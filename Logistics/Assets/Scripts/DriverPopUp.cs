@@ -166,6 +166,7 @@ public class DriverPopUp : MonoBehaviour
         if(contUser.user.role == role.logist){
             changeStatusRequest.SetActive(true);
         }
+        map.ChangeIdPoint(0);
         map.ShowMapForRequest(request);
     }
 

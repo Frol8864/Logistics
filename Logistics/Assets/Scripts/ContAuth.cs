@@ -19,9 +19,9 @@ public class ContAuth : MonoBehaviour
     public void StartAuth(){
         popUp.SetActive(true);
         dataUserAuths = new List<DataUserAuth>(){
-            new DataUserAuth("79675006885", "driver", 0),
-            new DataUserAuth("79675006886", "logist", 1),
-            new DataUserAuth("79675006887", "carrier", 2),
+            new DataUserAuth("79271155838", "carrier", 0),
+            new DataUserAuth("79170238207", "driver", 1),
+            new DataUserAuth("79675006885", "logist", 2),
         };
     }
 

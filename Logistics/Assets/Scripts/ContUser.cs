@@ -21,9 +21,11 @@ public class ContUser : MonoBehaviour
 
     public void GenUser(){
         users = new List<User>{
-            new User(0, "Райан", "Гослинг", "", "79675006885", role.driver, new Car("Geely", "12345678901234567", "A123AA123"), null, 2),
-            new User(1, "Христофор", "Колумб", "", "79675006886", role.logist, null, null, 0),
-            new User(2, "Джейсон", "Стэйтем", "", "79675006887", role.carrier, null, new Legal("Колхоз 40 лет без урожая", "123456789012", "0987654321"), 1),
+            //new User(0, "Чаплыгин", "Андрей", "", "79675006885", role.driver, new Car("Geely", "12345678901234567", "A123AA123"), null, 2),
+            //new User(1, "Христофор", "Колумб", "", "79675006886", role.logist, null, null, 0),
+            new User(0, "Чаплыгин", "Андрей", "", "79271155838", role.carrier, null, new Legal("ИП Чаплыгин А.В.", "644304166230", ""), 2),
+            new User(1, "Зайцев", "Александр", "", "79170238207", role.driver, new Car("ГАЗель", "X9633020082329540", "Р 357 СВ 64"), null, 0),
+            new User(2, "Горловой", "Виктор", "", "79675006885", role.logist, null, null, 2),
             //new User(3, "Джейсон", "Стэйтем", "", "79675006888", role.carrier, null, new Legal("ООО Моя Оборона", "210987654321", "1234567890"), 1),
             //new User(4, "Доминик", "Торетто", "", "79675006889", role.driver, new Car("Dodge", "12345678901234567", "A123AA123"), null, 2),
         };
@@ -70,6 +72,10 @@ public class ContUser : MonoBehaviour
     public void ClickMain(){
         if(user.role == role.driver) {
             driverPopUp.ClickOpenClose(true);
+            createRequestPopUp.ClickOpenClose(false);
+            createUserPopUp.ClickOpenClose(false);
+            carrierPopUp.ClickOpenClose(false);
+            logistPopUp.ClickOpenClose(false);
         }
         if(user.role == role.logist) {
             driverPopUp.ClickOpenClose(false);

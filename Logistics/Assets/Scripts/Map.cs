@@ -13,6 +13,7 @@ public class Map : MonoBehaviour
     private float longitude1 = 45.97515f;
     private float latitude1 = 51.58505f;
     private int zoom = 16;
+    private int idPoint = 0;
     public RawImage mapRenderer;
     [SerializeField] InputField addres;
 
@@ -32,6 +33,11 @@ public class Map : MonoBehaviour
     public void ChangeZoom(int x){
         if(zoom + x <= 0 || zoom + x >= 20) return;
         zoom += x;
+        StartCoroutine(LoadMap());
+    }
+
+    public void ChangeIdPoint(int x){
+        idPoint = x;
         StartCoroutine(LoadMap());
     }
 
@@ -150,10 +156,13 @@ public class Map : MonoBehaviour
 
     IEnumerator LoadMap()
     {
+        string lonStr = idPoint == 0 ? longitude0.ToString(CultureInfo.InvariantCulture) : longitude1.ToString(CultureInfo.InvariantCulture);
+        string latStr = idPoint == 0 ? latitude0.ToString(CultureInfo.InvariantCulture) : latitude1.ToString(CultureInfo.InvariantCulture);
+
         string lonStr0 = longitude0.ToString(CultureInfo.InvariantCulture);
         string latStr0 = latitude0.ToString(CultureInfo.InvariantCulture);
 
-        string url = $"https://static-maps.yandex.ru/v1?ll={lonStr0},{latStr0}&lang=ru_RU&size=450,450&z={zoom}&apikey={apiKeyStatic}";
+        string url = $"https://static-maps.yandex.ru/v1?ll={lonStr},{latStr}&lang=ru_RU&size=450,450&z={zoom}&apikey={apiKeyStatic}";
         url += $"&pt={lonStr0},{latStr0},pmwtm1";
         
         string lonStr1 = longitude1.ToString(CultureInfo.InvariantCulture);

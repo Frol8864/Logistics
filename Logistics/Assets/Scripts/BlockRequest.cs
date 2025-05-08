@@ -22,6 +22,11 @@ public class BlockRequest : MonoBehaviour
     private Request request;
 
     public void Clear(){
+        numberRequest.GetComponent<Text>().text = "";
+        status.GetComponent<Text>().text = "";
+        nameCargo.GetComponent<Text>().text = "";
+        addressFrom.GetComponent<Text>().text = "";
+        addressTo.GetComponent<Text>().text = "";
         empty.SetActive(true);
         isRequst = false;
     }

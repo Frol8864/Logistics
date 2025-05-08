@@ -61,7 +61,7 @@ public class CreateRequestPopUp : MonoBehaviour
         if(!isDriver || !isCarrier) return;
         
         Request request = new Request(
-            contRequest.requests.Count, contRequest.requests.Count, nameCargo.text, Int32.Parse(weight.text), Int32.Parse(volume.text), 
+            contRequest.requests.Count + 1, contRequest.requests.Count + 1, nameCargo.text, Int32.Parse(weight.text), Int32.Parse(volume.text), 
             addressFrom.text, dateFrom.text, timeFrom.text, addressTo.text, dateTo.text, timeTo.text,
             driver.idUser, carrier.idUser, statusRequest.work
         );
